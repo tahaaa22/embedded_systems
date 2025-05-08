@@ -12,13 +12,13 @@ Src/
 │   │   ├── src/
 │   │   ├── README.md
 │   ├── ...
-│── final_project/
+│── FinalProject/
 │   ├── src/
-│   ├── Application layer/
+│   ├── Application/
 │   ├── HAL/
 │   ├── MCAL/
 │   ├── README.md
-│── docs/
+│── Docs/
 │   ├── reports/
 │   ├── references/
 │── README.md
