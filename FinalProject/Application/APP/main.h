@@ -1,11 +1,3 @@
-/*
- * main.h
- *
- * Created: 8/19/2024 4:23:14 PM
- * Author:  Youssef Bassem
- */ 
-
-
 #ifndef MAIN_H_
 #define MAIN_H_
 
@@ -29,6 +21,7 @@
 #include "../HAL/BUZZER/BUZZER_interface.h"
 #include "../HAL/EEPROM/EEPROM_interface.h"
 #include "../HAL/ULTRASONIC/ULTRASONIC_interface.h"
+
 /* Section: Macro Declaration */
 #define F_CPU 16000000UL
 #include <util/delay.h>
@@ -36,6 +29,5 @@
 /* Section: Data Type Declaration*/
 
 /* Section: Function Declaration */
-
 
 #endif /* MAIN_H_ */
