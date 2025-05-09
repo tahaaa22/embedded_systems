@@ -2,7 +2,7 @@
 
 // Keypad setup function
 void KeypadSetup(void) {
-	// Set keypad column pins (e.g., PC1–PC3) as input
+	// Set keypad column pins (e.g., PC1ï¿½PC3) as input
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN1, INPUT);
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN2, INPUT);
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN3, INPUT);
@@ -22,7 +22,7 @@ void LCDSetup(void) {
 	// Initialize LCD
 	LCD_voidInit();
 
-	// Set row pins (PC0–PC3) as output for keypad (if needed)
+	// Set row pins (PC0ï¿½PC3) as output for keypad (if needed)
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN0, OUTPUT);
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN1, OUTPUT);
 	DIO_voidSetPinDir(DIO_PORTC, DIO_PIN2, OUTPUT);

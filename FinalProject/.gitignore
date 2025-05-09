@@ -1,0 +1,6 @@
+.vs
+.git
+bin
+obj
+/FinalProject/Application/Debug/*
+/FinalProject/Application/Debug
