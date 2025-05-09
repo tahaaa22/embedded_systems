@@ -1,9 +1,3 @@
-/*
- * main.c
- *
- * Created: 8/17/2024 7:08:28 PM
- * Author : Youssef Bassem
- */ 
 
 /* Section: Includes */
 #include "main.h"
@@ -13,23 +7,20 @@
 
 int main(void) {
 
-
-	DC_MOTOR_voidCW(70);
+	 ///* LCD INIT  */
+	 DIO_voidSetPortDir(LCD_DPORT,0xf0)  ;
+	 DIO_voidSetPortDir(LCD_CPORT,0x0E) ;  // 00000111
+	 LCD_voidInit() ;
+	 DIO_voidSetPinDir(DIO_PORTC, DIO_PIN0,INPUT);
+	 DIO_voidSetPinVal(DIO_PORTC, DIO_PIN0,OUTPUT);
+	 DIO_voidSetPinDir(DIO_PORTC, DIO_PIN1,INPUT);
+	 DIO_voidSetPinVal(DIO_PORTC, DIO_PIN1,OUTPUT);
+	 DIO_voidSetPinDir(DIO_PORTC, DIO_PIN2,INPUT);
+	 DIO_voidSetPinVal(DIO_PORTC, DIO_PIN2,OUTPUT);
+	
 
 	while(1){
-		u16 dist = ULTRASONIC_u16GetDistance();
-
-		_delay_ms(100);
-		if (dist < 10)
-		{
-
-			
 	
-			LED_voidOn(DIO_PORTC,DIO_PIN2);
-		}else{
-			
-			LED_voidOff(DIO_PORTC,DIO_PIN2);
-		}
 			
 	
 	}
