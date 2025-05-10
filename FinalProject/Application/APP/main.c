@@ -41,7 +41,7 @@ void healthChoices(void)
 	LCD_voidSendString("Choose from :");
 	LCD_voidGoto(0,1);
 	LCD_voidSendString("A, B, C");
-	_delay_ms(500);
+	_delay_ms(50);
 	LCD_voidClearScreen();
 	LCD_voidGoto(0, 0);
 	LCD_voidSendString("A:No B:Normal");
@@ -110,7 +110,6 @@ healthType updateHealth(void)
 		LCD_voidSendString("Invalid choice");
 		LCD_voidGoto(0,1);
 		LCD_voidSendString("choose val opt");
-		updateHealth();
 	}
 	_delay_ms(1000);
 	
@@ -132,19 +131,50 @@ void showTestResult(void)
 	LCD_voidGoto(0,1);
 	if(low_level == True)
 		LCD_voidSendString("Mild Hearing L");
-	else if(normal_level == True)
-		LCD_voidSendString("Normal Hearing");
 	else if(extreme_level == True)
 		LCD_voidSendString("Severe Hearing");
+	else if(normal_level == True)
+	LCD_voidSendString("Normal Hearing");
 	else
 		LCD_voidSendString("check your DR");
-	resetHealth();
+		
 	_delay_ms(2000);
 	LCD_voidClearScreen();
 	LCD_voidGoto(0,0);
 	LCD_voidSendString("thank you");
 	LCD_voidGoto(0,1);
-	LCD_voidSendString("for using Biko.")
+	LCD_voidSendString("for using Biko.");
+	_delay_ms(1000);
+}
+
+void applyFrequency(u8 frequency, u8 led_level)
+{
+	LCD_voidClearScreen();
+	LCD_voidGoto(0,0);
+	LCD_voidSendString("freq= ");
+	LCD_voidSendNum(frequency);
+	LCD_voidSendString("HZ");
+	BUZZER_voidOn(100, frequency);
+						
+	// setup led to show completion process
+	CompletionLevel(led_level);
+	_delay_ms(2000);
+}
+
+Bool applyHealth(void)
+{
+	healthChoices();
+	healthType health= updateHealth();
+	BUZZER_voidOff();
+	_delay_ms(2000);
+	if (health == lowHealth || health == extremeHealth)
+	{
+		
+		resetLeds();
+		return True;
+	}
+	// return false if the user will continue the test
+	return False;
 }
 
 void automaticMode(void)
@@ -152,10 +182,10 @@ void automaticMode(void)
 	// ranges of applied frequencies
 	u32 frequencies[4] = {5, 50 , 100, 210};
 	u8 current_Key = 0xff;
-	
+	Bool health_checked = False;
 	LCD_voidClearScreen();
 	LCD_voidGoto(0,0);
-	LCD_voidSendString("welcome to Auto");
+	LCD_voidSendString("Now in Auto");
 	LCD_voidGoto(0,1);
 	LCD_voidSendString("press # to start");
 	
@@ -163,37 +193,95 @@ void automaticMode(void)
 	
 	for(u8 index = 0; index < 4; ++index)
 	{
-		LCD_voidClearScreen();
-		LCD_voidGoto(0,0);
-		LCD_voidSendString("freq= ");
-		LCD_voidSendNum(frequencies[index]);
-		LCD_voidSendString("HZ");
-		BUZZER_voidOn(100, frequencies[index]);
+		applyFrequency(frequencies[index], index);
+		health_checked = applyHealth();
 		
-		// setup led to show completion process
-		CompletionLevel(index);
-		_delay_ms(2000);
-		
-	    healthChoices();
-		healthType health= updateHealth();
-		
-		if (health == lowHealth || health == extremeHealth)
+		if(health_checked == True)
 		{
-			BUZZER_voidOff();
-			resetLeds();
 			return;
 		}
 		_delay_ms(1000);
+	}
+	return;
+}
+
+void manualMode(void)
+{
+	u32 frequencies[4] = {5, 50 , 100, 210};
+	u8 current_Key = 0xff;
+	Bool health_checked = False;
+	
+	LCD_voidClearScreen();
+	LCD_voidGoto(0,0);
+	LCD_voidSendString("Welcome to");
+	LCD_voidGoto(0,1);
+	LCD_voidSendString("Manual Test");
+	
+	while(1)
+	{
+		current_Key = 0xff;
+		health_checked = False;
+		
+		LCD_voidClearScreen();
+		LCD_voidGoto(0,0);
+		LCD_voidSendString("Choose a Freq :");
+		_delay_ms(10);
+
+		LCD_voidClearScreen();
+		LCD_voidGoto(0,0);
+		LCD_voidSendString("1: 5Hz 2: 50Hz");
+		LCD_voidGoto(0,1);
+		LCD_voidSendString("3: 100Hz 4: 210");
+		do
+		{
+			current_Key = KEYPAD_u8GetKey();
+			_delay_ms(50);
+		} while (current_Key == 0xff); // if the key is set to a value exit holding condition
+	
+		switch(current_Key)
+		{
+			case (1):
+				applyFrequency(frequencies[0], 0);
+				health_checked = applyHealth();
+				_delay_ms(500);
+				break;
+			case (2):
+				applyFrequency(frequencies[1], 1);
+				health_checked = applyHealth();
+				_delay_ms(500);
+				break;
+			case (3):
+				applyFrequency(frequencies[2], 2);
+				health_checked = applyHealth();
+				_delay_ms(500);
+				break;
+			case (4):
+				applyFrequency(frequencies[3], 3);
+				health_checked = applyHealth();
+				_delay_ms(500);
+				break;
+		}
+		
+		if(health_checked == True)
+		{
+			return;
+		}
 	}
 }
 
 void Simulator(void) 
 {
 	u8 key = 0xff;
+	Bool is_finished = False;
+
 	while (1)
 	{
+		 is_finished = False;
+		 	BUZZER_voidOff();
+		 	_delay_ms(2000);
+			 
 		testChoices();
-		do 
+		do
 		{
 			key = KEYPAD_u8GetKey();
 			_delay_ms(50);
@@ -202,16 +290,38 @@ void Simulator(void)
 		switch(key)
 		{
 			case(0):
+			manualMode();
+			is_finished = True;
 			break;
+			
 			case(1):
 			automaticMode();
+			is_finished = True;
+			break;
+			
+			default:
+			LCD_voidClearScreen();
+			LCD_voidGoto(0,0);
+			LCD_voidSendString("Invalid choice");
+			LCD_voidGoto(0,1);
+			LCD_voidSendString("choose val opt");
+			_delay_ms(500);
+		}
+		if(is_finished == True)
+		{
+			BUZZER_voidOff();
+			resetLeds();
 			showTestResult();
+			resetHealth();
 			return;
 		}
 	}
 }
 
 
+/* ============================== *
+ *              MAIN               *
+ * ============================== */
 
 int main(void) {
 	LCDSetup();
