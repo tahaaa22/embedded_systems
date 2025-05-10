@@ -26,8 +26,20 @@
 #define F_CPU 16000000UL
 #include <util/delay.h>
 
-/* Section: Data Type Declaration*/
+#define PORT_LED_1 DIO_PORTC
+#define PORT_LED_2 DIO_PORTC
+#define PORT_LED_3 DIO_PORTD
 
+#define LED_1 DIO_PIN2
+#define LED_2 DIO_PIN7
+#define LED_3 DIO_PIN3
+
+/* Section: Data Type Declaration*/
+Bool low_level = False;
+Bool normal_level = False;
+Bool extreme_level = False;
+
+typedef enum {lowHealth, normalHealth, extremeHealth} healthType;
 /* Section: Function Declaration */
 
 #endif /* MAIN_H_ */

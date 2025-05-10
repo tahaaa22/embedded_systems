@@ -2,7 +2,7 @@
  * GI_prog.c
  *
  * Created: 8/31/2024 8:57:12 PM
- * Author: Youssef Bassem
+ * Author: Ahmed taha
  */
 
 #include "GI_interface.h" 

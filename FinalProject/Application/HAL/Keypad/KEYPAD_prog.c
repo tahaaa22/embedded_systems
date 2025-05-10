@@ -2,16 +2,16 @@
  * KEYPAD_prog.c
  *
  * Created: 8/30/2024 6:55:08 PM
- * Author: Youssef Bassem
+ * Author: Ahmed taha
  */ 
 
 #include "KEYPAD_interface.h"
 
 /*2D - Array that maps the coordinates of the press with the value it should represent */
 u8 KEYPAD_ARR[ROW][COL] = {
-	{7,8,9,'/'},
-	{4,5,6,'*'},
-	{1,2,3,'-'},
+	{7,8,9,'A'},
+	{4,5,6,'B'},
+	{1,2,3,'C'},
 	{'C',0,'=','+'},
 	
 };

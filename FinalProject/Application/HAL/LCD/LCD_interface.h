@@ -2,7 +2,7 @@
  * LCD_interface.h
  *
  * Created: 8/24/2024 10:46:51 PM
- * Author:  Youssef Bassem
+ * Author:  Ahmed taha
  */ 
 
 

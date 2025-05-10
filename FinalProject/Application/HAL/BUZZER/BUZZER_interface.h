@@ -33,7 +33,7 @@
 * Parameters   : u8 copy_u8duty_cycle
 * Return value : void
 *****************************************************************************/
-void BUZZER_voidOn(u8 copy_u8duty_cycle);
+void BUZZER_voidOn(u8 copy_u8duty_cycle, u8 frequency);
 
 /*****************************************************************************
 * Function Name: BUZZER_voidOff
