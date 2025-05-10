@@ -82,6 +82,23 @@ void TIM2_voidFastPWM(u8 copy_u8_duty_cycle){
 	OCR2_REG = (copy_u8_duty_cycle) * (TIM2_TOP_VAL / 100);
 }
 
+void TIM2_voidFastPWMFrequencyAdjust(u8 copy_u8_duty_cycle, u8 frequency){
+	/* Select Mode */
+	SET_BIT(TCCR2_REG,WGM20_);
+	SET_BIT(TCCR2_REG,WGM21_);
+	
+	/* Compare Output Mode */
+	SET_BIT(TCCR2_REG,COM21_); // Clear OC0 on compare match, set OC0 at BOTTOM,(non-inverting mode)
+	CLR_BIT(TCCR2_REG,COM20_);
+	
+	/* Select Prescalar */
+	TCCR2_REG &= PRESCALER_MASK;
+	TCCR2_REG |= TIM2_PRESCALER;
+	
+	/* Set Preload Value */
+	OCR2_REG = (copy_u8_duty_cycle) * (frequency / 100);
+}
+
 
 ISR(TIMER2_OVF_){
 	if (TIM2_PTR[0] != null)

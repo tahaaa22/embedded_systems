@@ -2,7 +2,7 @@
  * SSD_prog.c
  *
  * Created: 8/18/2024 12:32:55 AM
- * Author: Youssef Bassem
+ * Author: Ahmed taha
  */ 
 
 #include "SSD_interface.h"

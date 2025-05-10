@@ -1,6 +1,6 @@
 /*
 * @file: BIT_MATH.h
-* @author: Youssef Bassem
+* @author: Ahmed taha
 * @brief: Contains Function Like MACROS for Masking Bits
 * @date: 9/8/2024
 */

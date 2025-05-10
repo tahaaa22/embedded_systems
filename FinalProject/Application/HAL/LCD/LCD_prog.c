@@ -2,7 +2,7 @@
  * LCD_prog.c
  *
  * Created: 8/24/2024 10:47:11 PM
- * Author:  Youssef Bassem
+ * Author:  Ahmed taha
  */ 
 
 #include "LCD_interface.h"

@@ -1,9 +1,4 @@
-/*
- * BUZZER_prog.c
- *
- * Created: 9/28/2024 2:20:22 AM
- *  Author: youss
- */ 
+
 
 #include "BUZZER_interface.h"
 
@@ -13,11 +8,11 @@
 * Parameters   : u8 copy_u8duty_cycle
 * Return value : void
 *****************************************************************************/
-void BUZZER_voidOn(u8 copy_u8duty_cycle){
+void BUZZER_voidOn(u8 copy_u8duty_cycle, u8 frequency){
 	DIO_voidSetPinDir(BUZZER_PORT,BUZZER_PIN,OUTPUT);
-	DIO_voidSetPinDir(DIO_PORTB,DIO_PIN3,OUTPUT);
+	DIO_voidSetPinDir(DIO_PORTD,DIO_PIN7,OUTPUT);
 	
-	TIM0_voidFastPWM(copy_u8duty_cycle);
+	TIM2_voidFastPWMFrequencyAdjust(copy_u8duty_cycle, frequency);
 	
 }
 
@@ -28,6 +23,9 @@ void BUZZER_voidOn(u8 copy_u8duty_cycle){
 * Return value : void
 *****************************************************************************/
 void BUZZER_voidOff(void){
-	DIO_voidSetPinDir(BUZZER_PORT,BUZZER_PIN,OUTPUT);
-	DIO_voidSetPinVal(BUZZER_PORT,BUZZER_PIN,LOW);
+	TIM2_voidStop(); 
+
+	// Set pin to output and set it low
+	DIO_voidSetPinDir(DIO_PORTD,DIO_PIN7,OUTPUT);
+	DIO_voidSetPinVal(DIO_PORTD,DIO_PIN7,LOW);
 }

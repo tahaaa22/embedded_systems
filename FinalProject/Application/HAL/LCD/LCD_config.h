@@ -2,7 +2,7 @@
  * LCD_config.h
  *
  * Created: 8/24/2024 10:46:35 PM
- * Author:  Youssef Bassem
+ * Author:  Ahmed taha
  */ 
 
 

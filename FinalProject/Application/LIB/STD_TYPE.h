@@ -1,6 +1,6 @@
 /*
 * @file: STD_TYPES.h
-* @author: Youssef Bassem
+* @author: Ahmed taha
 * @brief: Contains Standard Data Types for all machines
 * @date: 9/8/2024
 */

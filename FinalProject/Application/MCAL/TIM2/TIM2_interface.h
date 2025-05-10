@@ -98,5 +98,5 @@ void TIM2_voidsetCallback(void (*copy_ptr)(void), u8 copy_u8mode);
 *****************************************************************************/
 void TIM2_voidFastPWM(u8 copy_u8_duty_cycle);
 
-
+void TIM2_voidFastPWMFrequencyAdjust(u8 copy_u8_duty_cycle, u8 frequency);
 #endif /* TIM2_INTERFACE_H_ */
